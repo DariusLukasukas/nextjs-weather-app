@@ -56,6 +56,8 @@ export default function Map() {
     latitude: lat ? Number(lat) : Number(defaultLat),
     longitude: lon ? Number(lon) : Number(defaultLon),
     zoom: 7,
+    pitch: 60,
+    bearing: -60,
   })
 
   const [MapCode, setMapCode] = useState("PR0")

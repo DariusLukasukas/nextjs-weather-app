@@ -105,7 +105,7 @@ export default function TenDayForecast({ data }: TenDayForecastProps) {
             10-Day Forecast
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-2 text-base font-normal">
+        <CardContent className="space-y-2 text-base font-normal md:mb-1">
           {data.list.map((item: ForecastData, i) => (
             <div key={item.dt}>
               <div className="flex w-full flex-row items-center justify-between gap-2 last:mb-0">
@@ -116,11 +116,11 @@ export default function TenDayForecast({ data }: TenDayForecastProps) {
                 </p>
                 <IconComponent
                   weatherCode={item.weather[0].id}
-                  className=" h-6 w-6"
+                  className=" h-8 w-8"
                 />
                 <div className="flex w-[60%] flex-row gap-2 overflow-hidden">
                   <div className="flex w-full select-none flex-row items-center justify-between gap-2 pr-2 text-sm">
-                    <p className="w-4 text-neutral-400 dark:text-neutral-600">
+                    <p className="w-4 text-neutral-600 dark:text-neutral-400">
                       {Math.floor(item.temp.min)}&deg;
                     </p>
                     <TemperatureRange
@@ -132,7 +132,7 @@ export default function TenDayForecast({ data }: TenDayForecastProps) {
                   </div>
                 </div>
               </div>
-              {i !== data.list.length - 1 && <Separator className="mt-2" />}
+              {i !== data.list.length - 1 && <Separator className="mt-3" />}
             </div>
           ))}
         </CardContent>
