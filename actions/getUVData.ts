@@ -1,6 +1,6 @@
 export const getUVData = async ({ lat, lon }: { lat: string; lon: string }) => {
   const data = await fetch(
-    `http://${process.env.VERCEL_URL}/api/weather/uv_index?lat=${lat}&lon=${lon}`
+    `${process.env.VERCEL_URL}/api/weather/uv_index?lat=${lat}&lon=${lon}`
   )
 
   if (!data.ok) {
