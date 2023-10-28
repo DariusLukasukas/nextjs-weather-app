@@ -6,7 +6,7 @@ export const getAirPollutionData = async ({
   lon: string
 }) => {
   const data = await fetch(
-    `${process.env.VERCEL_URL}/api/weather/air_pollution?lat=${lat}&lon=${lon}&appid=${process.env.OPEN_WEATHER_API_KEY}`,
+    `https://${process.env.VERCEL_URL}/api/weather/air_pollution?lat=${lat}&lon=${lon}&appid=${process.env.OPEN_WEATHER_API_KEY}`,
     {
       next: { revalidate: 900 },
     }
