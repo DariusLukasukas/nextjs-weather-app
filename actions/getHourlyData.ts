@@ -6,7 +6,7 @@ export const getHourlyData = async ({
   lon: string
 }) => {
   const data = await fetch(
-    `${process.env.DOMAIN}/api/weather/hourly?lat=${lat}&lon=${lon}&appid=${process.env.OPEN_WEATHER_API_KEY}`,
+    `${process.env.VERCEL_URL}/api/weather/hourly?lat=${lat}&lon=${lon}&appid=${process.env.OPEN_WEATHER_API_KEY}`,
     {
       next: { revalidate: 900 },
     }
