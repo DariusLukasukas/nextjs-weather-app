@@ -6,5 +6,9 @@ export const getUVData = async ({ lat, lon }: { lat: string; lon: string }) => {
     }
   )
 
+  if (!data.ok) {
+    throw new Error("Failed to fetch data")
+  }
+
   return data.json()
 }

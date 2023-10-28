@@ -49,7 +49,6 @@ export default async function Home() {
     ])
 
   if (!hourly_data || !ten_day_forecast || !air_pollution) return notFound()
-
   const now = new Date()
 
   return (

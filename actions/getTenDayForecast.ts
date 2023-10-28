@@ -11,6 +11,9 @@ export const getTenDayForecast = async ({
       next: { revalidate: 900 },
     }
   )
+   if (!data.ok) {
+     throw new Error("Failed to fetch data")
+   }
 
   return data.json()
 }
