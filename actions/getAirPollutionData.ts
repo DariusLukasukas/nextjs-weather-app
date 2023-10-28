@@ -6,7 +6,7 @@ export const getAirPollutionData = async ({
   lon: string
 }) => {
   const data = await fetch(
-    `http://localhost:3000/api/weather/air_pollution?lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}`,
+    `${process.env.DOMAIN}/api/weather/air_pollution?lat=${lat}&lon=${lon}&appid=${process.env.OPEN_WEATHER_API_KEY}`,
     {
       next: { revalidate: 900 },
     }
