@@ -17,20 +17,20 @@ import {
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-export async function generateMetadata({
-  searchParams,
-}: {
-  searchParams: searchParamsProps
-}): Promise<Metadata> {
-  const { lat, lon } = searchParams
-  const url = `${process.env.VERCEL_URL}/api/weather/hourly?lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}`
-  const data = await fetch(url).then((res) => res.json())
+// export async function generateMetadata({
+//   searchParams,
+// }: {
+//   searchParams: searchParamsProps
+// }): Promise<Metadata> {
+//   const { lat, lon } = searchParams
+//   const url = `${process.env.VERCEL_URL}/api/weather/hourly?lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}`
+//   const data = await fetch(url).then((res) => res.json())
 
-  return {
-    title: `${data.city.name} - Weather Forecast`,
-    description: `${data.city.name} weather forecast with current conditions, wind, air quality, and what to expect for the next 3 days.`,
-  }
-}
+//   return {
+//     title: `${data.city.name} - Weather Forecast`,
+//     description: `${data.city.name} weather forecast with current conditions, wind, air quality, and what to expect for the next 3 days.`,
+//   }
+// }
 
 interface searchParamsProps {
   lat: string
