@@ -27,8 +27,8 @@ export default function RootLayout({
         >
           <Navigation />
           <main className="flex-grow">{children}</main>
-          <footer className="group py-4">
-            <div className="flex items-center justify-center gap-1 text-neutral-400 dark:text-neutral-600">
+          <footer className="py-4">
+            <div className="group flex items-center justify-center gap-1 text-neutral-400 dark:text-neutral-600">
               <CodeIcon className="h-5 w-5" />
               <span>with</span>
               <HeartIcon className="h-4 w-4 group-hover:text-red-500" />
@@ -37,7 +37,7 @@ export default function RootLayout({
           </footer>
         </NextThemesProvider>
         <Script
-          strategy={"beforeInteractive"}
+          strategy={"lazyOnload"}
           src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places&callback=Function.prototype`}
         />
       </body>
