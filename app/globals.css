@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  display: relative;
+  scrollbar-gutter: stable;
+}
+
 body[style] {
   height: 100%;
   width: 100%;

@@ -20,6 +20,10 @@ const OPENWEATHERMAP_TOKEN = process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY
 
 export default function Map() {
   const { theme } = useTheme()
+  //   const MapTheme = useMemo(() => {
+  //     return theme === "dark" ? "dark" : "light"
+  //   }, [theme])
+
   const MapTheme = useMemo(() => {
     return theme === "system"
       ? window.matchMedia &&
@@ -28,10 +32,6 @@ export default function Map() {
         : "light"
       : theme
   }, [theme])
-
-  //   const MapTheme = useMemo(() => {
-  //     return theme === "dark" ? "dark" : "light"
-  //   }, [theme])
 
   const searchParams = useSearchParams()
   const lat = searchParams.get("lat")

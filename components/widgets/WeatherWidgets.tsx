@@ -66,7 +66,7 @@ export default function WeatherWidgets({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p>{formatSunTimeWithAMPM(city.sunrise, city.timezone)}</p>
+          <p>{formatSunTimeWithAMPM(city.sunset, city.timezone)}</p>
         </CardContent>
         <CardFooter>
           <p>Sunrise: {formatSunTimeWithAMPM(city.sunrise, city.timezone)}</p>
