@@ -1,15 +1,13 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
-import { twMerge } from "tailwind-merge"
+import { useEffect, useState } from "react"
 
 interface ClockProps {
   initial: Date
   timezone: number
-  className?: string
 }
 
-export default function Clock({ initial, timezone, className }: ClockProps) {
+export default function Clock({ initial, timezone }: ClockProps) {
   const [time, setTime] = useState(calculateLocalTime(initial, timezone))
 
   useEffect(() => {
@@ -27,7 +25,7 @@ export default function Clock({ initial, timezone, className }: ClockProps) {
   }
 
   return (
-    <div className={twMerge("tabular.nums", className)}>
+    <div className="tabular.nums">
       {time.toLocaleTimeString("en-US", {
         timeZone: "UTC",
         hour12: true,
