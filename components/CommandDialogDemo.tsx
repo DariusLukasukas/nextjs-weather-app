@@ -89,7 +89,7 @@ export function CommandDialogDemo() {
           placeholder="Search city..."
           value={value}
           onValueChange={setValue}
-          disabled={ready}
+          disabled={!ready}
         />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
