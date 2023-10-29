@@ -80,7 +80,7 @@ export default function Map() {
   }, [lat, lon, defaultLat, defaultLon])
 
   return (
-    <Card className="order-11 col-span-1 h-[25rem] overflow-hidden p-0 md:p-0 lg:col-span-2 xl:col-span-3">
+    <Card className="order-11 col-span-1 h-[25rem] overflow-hidden overscroll-contain  p-0 md:p-0 lg:col-span-2 xl:col-span-3">
       <div className="absolute right-0 z-10 m-2">
         <Select value={MapCode} onValueChange={setMapCode}>
           <SelectTrigger aria-label="Map layer" className="w-fit">

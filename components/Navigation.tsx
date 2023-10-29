@@ -7,14 +7,7 @@ import { GitHubLogoIcon } from "@radix-ui/react-icons"
 export default function Navigation() {
   return (
     <nav className="flex w-full items-center justify-between py-4">
-      <Link
-        aria-label="Home"
-        href={"/"}
-        className="hidden rounded-md text-2xl font-extrabold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:block"
-      >
-        Weather
-      </Link>
-
+      <div />
       <div className="flex w-full gap-2 sm:w-fit">
         <CommandDialogDemo />
         <ModeToggle />

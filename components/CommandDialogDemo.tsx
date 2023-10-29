@@ -73,12 +73,13 @@ export function CommandDialogDemo() {
     <>
       <Button
         variant={"outline"}
+        size={"lg"}
         onClick={() => setOpen(true)}
-        className="h-9 w-full whitespace-nowrap"
+        className="h-9 w-full whitespace-nowrap px-4"
       >
         <p className="text-sm text-muted-foreground">
           Search city...{" "}
-          <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100 hover:bg-primary md:ml-10">
+          <kbd className="pointer-events-none ml-auto inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100 hover:bg-primary md:ml-28">
             <span className="text-xs">⌘</span>J
           </kbd>
         </p>
@@ -88,7 +89,7 @@ export function CommandDialogDemo() {
           placeholder="Search city..."
           value={value}
           onValueChange={setValue}
-          disabled={!ready}
+          disabled={ready}
         />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
