@@ -24,6 +24,7 @@ export default function WeatherWidgets({
   uvIndexForToday,
   city,
 }: WeatherWidgetsProps) {
+  console.log(data)
   return (
     <>
       <AirPollution airQuality={airQuality} className="order-2 md:order-1" />
@@ -241,16 +242,18 @@ export default function WeatherWidgets({
         </CardHeader>
         <CardContent>
           <p>
-            {data.rain?.["1h"] || 0}mm <br></br>in the last 3 hours
+            {data.rain?.["1h"] || 0}mm <br></br>in the last 3h
           </p>
         </CardContent>
         <CardFooter>
           <p>
-            {data.rain?.["1h"] || 0 === 0
-              ? "No recent precipitation. Conditions are dry."
-              : data.rain?.["1h"] && data.rain["1h"] <= 2
-              ? "Light rain or drizzle. An umbrella may come in handy."
-              : "Heavy rain. Prepare for wet weather."}
+            {data.rain?.["1h"] !== undefined
+              ? data.rain["1h"] <= 0.1
+                ? "Light rain or drizzle. An umbrella may come in handy."
+                : data.rain["1h"] <= 2.5
+                ? "Moderate rain. You might need an umbrella or raincoat."
+                : "Heavy rain. Prepare for wet weather."
+              : "Conditions are dry."}
           </p>
         </CardFooter>
       </Card>

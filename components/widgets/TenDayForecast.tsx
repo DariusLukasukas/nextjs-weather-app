@@ -120,7 +120,7 @@ export default function TenDayForecast({ data }: TenDayForecastProps) {
                 />
                 <div className="flex w-[60%] flex-row gap-2 overflow-hidden">
                   <div className="flex w-full select-none flex-row items-center justify-between gap-2 pr-2 text-sm">
-                    <p className="w-4 text-neutral-600 dark:text-neutral-400">
+                    <p className="flex w-[3rem] min-w-fit justify-end text-neutral-600 dark:text-neutral-400">
                       {Math.floor(item.temp.min)}&deg;
                     </p>
                     <TemperatureRange
@@ -128,7 +128,9 @@ export default function TenDayForecast({ data }: TenDayForecastProps) {
                       max={maxTemperature}
                       value={[item.temp.min, item.temp.max]}
                     />
-                    <p className="w-4">{Math.floor(item.temp.max)}&deg;</p>
+                    <p className="flex w-[3rem] min-w-fit justify-end">
+                      {Math.floor(item.temp.max)}&deg;
+                    </p>
                   </div>
                 </div>
               </div>
