@@ -7,14 +7,11 @@ import IconComponent from "../ui/icon-component"
 interface CurrentWeatherProps {
   data: HourlyForecastData
   city: City
-  time: Date
 }
 
-export default function CurrentWeather({
-  data,
-  city,
-  time: initial,
-}: CurrentWeatherProps) {
+export default function CurrentWeather({ data, city }: CurrentWeatherProps) {
+  const initial = new Date()
+
   return (
     <Card className="relative flex h-fit w-full shrink-0 flex-col justify-between overflow-hidden md:h-[25rem]">
       <div className="absolute " />

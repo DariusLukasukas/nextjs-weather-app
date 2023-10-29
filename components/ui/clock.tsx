@@ -33,7 +33,7 @@ export default function Clock({ initial, timezone, className }: ClockProps) {
         hour12: true,
         hour: "numeric",
         minute: "2-digit",
-        // second: "2-digit",
+        second: "2-digit",
       })}
     </div>
   )
