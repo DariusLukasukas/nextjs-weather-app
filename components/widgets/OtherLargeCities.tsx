@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export default function OtherLargeCities() {
   return (
-    <div className="relative order-last h-[25rem] w-full flex-col justify-between">
+    <div className="relative order-last hidden h-[25rem] w-full flex-col justify-between lg:block">
       <h3 className="py-3 font-semibold">Other large cities</h3>
       <div className="flex flex-col space-y-3.5">
         {OTHER_LARGE_CITIES.map((item) => (
