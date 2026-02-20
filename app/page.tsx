@@ -3,6 +3,7 @@ import {
   getCurrentWeather,
   getDailyForecast16Days,
   getUVIndex,
+  getWeatherMap1Tile,
 } from "@/actions/weather";
 import Header from "@/components/header/header";
 import Sidebar from "@/components/sidebar/sidebar";
@@ -24,7 +25,7 @@ import {
   Droplet,
   Eye,
   Gauge,
-  Map,
+  Map as MapIcon,
   Sun,
   Sunrise,
   Thermometer,
@@ -39,6 +40,7 @@ import SunriseSunsetCard from "@/components/weather/sunrise-sunset-card";
 import AirQualityCard from "@/components/weather/air-quality-card";
 import UVIndexCard from "@/components/weather/uv-index-card";
 import TenDayForecastCard from "@/components/weather/ten-day-forecast-card";
+import Map from "@/components/weather/map";
 
 // Cupertino, CA
 const DEFAULT_LAT = 37.319321;
@@ -63,6 +65,7 @@ export default async function Home({
     getAirPollution(Number(lat), Number(lon)),
     getUVIndex(Number(lat), Number(lon)),
     getDailyForecast16Days(Number(lat), Number(lon), 10),
+    // getWeatherMap1Tile({ layer: "temp_new", zoom: 10, x: 0, y: 0 }),
   ]);
 
   /*
@@ -118,14 +121,16 @@ export default async function Home({
             </GridCard>
 
             {/* Map */}
-            <GridCard className="col-span-2 row-span-2">
+            <GridCard className="col-span-2 row-span-2 gap-2">
               <GridCardHeader>
                 <GridCardTitle>
-                  <Map size={16} />
+                  <MapIcon size={16} />
                   Map
                 </GridCardTitle>
               </GridCardHeader>
-              <GridCardContent></GridCardContent>
+              <GridCardContent>
+                <Map lat={Number(lat)} lon={Number(lon)} />
+              </GridCardContent>
             </GridCard>
 
             {/* Wind */}
