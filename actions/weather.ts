@@ -181,31 +181,3 @@ export async function getDailyForecast16Days(
   const data: OpenWeatherDailyForecast16DaysResponse = await res.json();
   return data;
 }
-
-/**
- * Weather Map 1.0 Tile API Request
- * @param params OpenWeatherWeatherMap1TileParams
- * @return
- */
-export async function getWeatherMap1Tile({
-  layer,
-  zoom,
-  x,
-  y,
-}: OpenWeatherWeatherMap1TileParams): Promise<Blob> {
-  const params = new URLSearchParams({
-    layer,
-    zoom: String(zoom),
-    x: String(x),
-    y: String(y),
-  });
-
-  const res = await fetch(`${BASE_URL}/map/1.0/tile/png?${params}`, {
-    next: { revalidate: 3000 }, // 30 minutes
-  });
-
-  if (!res.ok) throw new Error("Failed to fetch weather map tile.");
-
-  const blob = await res.blob();
-  return blob;
-}

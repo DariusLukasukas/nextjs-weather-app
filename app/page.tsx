@@ -3,7 +3,6 @@ import {
   getCurrentWeather,
   getDailyForecast16Days,
   getUVIndex,
-  getWeatherMap1Tile,
 } from "@/actions/weather";
 import Header from "@/components/header/header";
 import Sidebar from "@/components/sidebar/sidebar";
@@ -65,7 +64,6 @@ export default async function Home({
     getAirPollution(Number(lat), Number(lon)),
     getUVIndex(Number(lat), Number(lon)),
     getDailyForecast16Days(Number(lat), Number(lon), 10),
-    // getWeatherMap1Tile({ layer: "temp_new", zoom: 10, x: 0, y: 0 }),
   ]);
 
   /*
