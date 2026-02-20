@@ -6,13 +6,12 @@ import type {
   OpenWeatherCurrentWeatherResponse,
   OpenWeatherDailyForecast16DaysResponse,
   OpenWeatherHourlyForecast4DaysResponse,
-  OpenWeatherWeatherMap1TileParams,
 } from "@/types/openweather";
 
 const BASE_URL = "https://api.openweathermap.org/data/2.5";
 
 function getApiKey() {
-  const key = process.env.OPENWEATHER_API_KEY;
+  const key = process.env.WEATHER_API_KEY;
   if (!key) throw new Error("Missing OpenWeather API Key.");
   return key;
 }
@@ -35,7 +34,7 @@ export async function getCurrentWeather(
   });
 
   const res = await fetch(`${BASE_URL}/weather?${params}`, {
-    next: { revalidate: 3000, tags: ["weather"] }, // 30 minutes cache
+    next: { revalidate: 3000, tags: ["weather"] }, // 30 minutes
   });
 
   if (!res.ok) {
@@ -64,7 +63,7 @@ export async function getHourlyForecast4Days(
   });
 
   const res = await fetch(`${BASE_URL}/forecast/hourly?${params}`, {
-    next: { revalidate: 3000 }, // 30 minutes
+    next: { revalidate: 3000 },
   });
 
   if (!res.ok) {
@@ -127,7 +126,7 @@ export async function getAirPollution(
   });
 
   const res = await fetch(`${BASE_URL}/air_pollution?${params}`, {
-    next: { revalidate: 3000 }, // 30 minutes
+    next: { revalidate: 300 },
   });
 
   if (!res.ok) throw new Error("Failed to fetch air pollution data.");
@@ -144,7 +143,7 @@ export async function getAirPollution(
 export async function getUVIndex(lat: number, lon: number): Promise<number> {
   const res = await fetch(
     `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=uv_index`,
-    { next: { revalidate: 3000 } }, // 30 minutes
+    { next: { revalidate: 300 } },
   );
 
   if (!res.ok) throw new Error("Failed to fetch UV index.");
@@ -173,39 +172,11 @@ export async function getDailyForecast16Days(
   });
 
   const res = await fetch(`${BASE_URL}/forecast/daily?${params}`, {
-    next: { revalidate: 3000 }, // 30 minutes
+    next: { revalidate: 300 },
   });
 
   if (!res.ok) throw new Error("Failed to fetch daily forecast data.");
 
   const data: OpenWeatherDailyForecast16DaysResponse = await res.json();
   return data;
-}
-
-/**
- * Weather Map 1.0 Tile API Request
- * @param params OpenWeatherWeatherMap1TileParams
- * @return
- */
-export async function getWeatherMap1Tile({
-  layer,
-  zoom,
-  x,
-  y,
-}: OpenWeatherWeatherMap1TileParams): Promise<Blob> {
-  const params = new URLSearchParams({
-    layer,
-    zoom: String(zoom),
-    x: String(x),
-    y: String(y),
-  });
-
-  const res = await fetch(`${BASE_URL}/map/1.0/tile/png?${params}`, {
-    next: { revalidate: 3000 }, // 30 minutes
-  });
-
-  if (!res.ok) throw new Error("Failed to fetch weather map tile.");
-
-  const blob = await res.blob();
-  return blob;
 }

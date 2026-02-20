@@ -15,7 +15,6 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.564.0",
-    "mapbox-gl": "^3.18.1",
     "motion": "^12.34.0",
     "next": "16.1.6",
     "next-themes": "^0.4.6",

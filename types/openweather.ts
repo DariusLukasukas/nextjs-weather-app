@@ -222,19 +222,3 @@ export interface OpenWeatherDailyForecast16DaysResponse {
   list: OpenWeatherDailyForecastListItem[];
   city: OpenWeatherDailyForecastCity;
 }
-
-/** Weather Map Layer */
-export type OpenWeatherWeatherMapLayer =
-  | "clouds_new"
-  | "precipitation_new"
-  | "pressure_new"
-  | "wind_new"
-  | "temp_new";
-
-/** Weather Map 1.0 Tile Params */
-export interface OpenWeatherWeatherMap1TileParams {
-  layer: OpenWeatherWeatherMapLayer;
-  zoom: number; // 0-18
-  x: number;
-  y: number;
-}
