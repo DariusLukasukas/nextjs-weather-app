@@ -6,7 +6,6 @@ import type {
   OpenWeatherCurrentWeatherResponse,
   OpenWeatherDailyForecast16DaysResponse,
   OpenWeatherHourlyForecast4DaysResponse,
-  OpenWeatherWeatherMap1TileParams,
 } from "@/types/openweather";
 
 const BASE_URL = "https://api.openweathermap.org/data/2.5";
