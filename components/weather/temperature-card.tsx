@@ -1,5 +1,5 @@
 "use client";
-import { convertTemp } from "@/lib/units";
+import { convertTemp } from "@/lib/weather/units";
 import { OpenWeatherCurrentWeatherResponse } from "@/types/openweather";
 import { WeatherUnits } from "@/types/weather-units";
 import { useSearchParams } from "next/navigation";

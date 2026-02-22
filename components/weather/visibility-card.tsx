@@ -4,7 +4,7 @@
  *
  */
 
-import { convertDistance } from "@/lib/units";
+import { convertDistance } from "@/lib/weather/units";
 import { WeatherUnits } from "@/types/weather-units";
 
 export default function VisibilityCard({

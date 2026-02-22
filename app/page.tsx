@@ -10,7 +10,7 @@ import Sidebar from "@/components/sidebar/sidebar";
 import TemperatureCard from "@/components/weather/temperature-card";
 import { DEFAULT_WEATHER_UNITS, WeatherUnits } from "@/types/weather-units";
 import { cookies } from "next/headers";
-
+import type { Metadata } from "next";
 import * as motion from "motion/react-client";
 import {
   GridCard,
@@ -49,11 +49,35 @@ const DEFAULT_LON = -122.029283;
 
 const FORECAST_HOURS = 24;
 const FORECAST_DAYS = 10;
+const APP_NAME = "Vertex Weather";
+
+type HomeParams = {
+  lat?: string;
+  lon?: string;
+  location?: string;
+  country?: string;
+};
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<HomeParams>;
+}): Promise<Metadata> {
+  const { location, country } = await searchParams;
+
+  if (location) {
+    const title = country
+      ? `${location}, ${country} - ${APP_NAME}`
+      : `${location} - ${APP_NAME}`;
+    return { title };
+  }
+  return {};
+}
 
 export default async function Home({
   searchParams,
 }: {
-  searchParams: Promise<{ lat?: string; lon?: string }>;
+  searchParams: Promise<HomeParams>;
 }) {
   const cookieStore = await cookies();
   // Get sidebar state from cookie store

@@ -1,19 +1,20 @@
-import { convertTemp } from "@/lib/units";
+import { convertTemp } from "@/lib/weather/units";
 import { cn } from "@/lib/utils";
 import { SavedCity } from "@/types/city";
 import { OpenWeatherCurrentWeatherResponse } from "@/types/openweather";
 import { WeatherUnits } from "@/types/weather-units";
 import CityTime from "./city-time";
+import { memo } from "react";
 
 interface CityCardProps {
   city: SavedCity;
-  onClick: () => void;
+  onClick: (city: SavedCity) => void;
   isActive?: boolean;
   weather: OpenWeatherCurrentWeatherResponse | null;
   temperatureUnit: WeatherUnits["temperature"];
 }
 
-export default function CityCard({
+function CityCard({
   city,
   onClick,
   isActive,
@@ -27,7 +28,7 @@ export default function CityCard({
 
   return (
     <div
-      onClick={onClick}
+      onClick={() => onClick(city)}
       className={cn(
         "flex shrink-0 flex-col gap-6 rounded-2xl border p-3 select-none",
         isActive ? "outline-2" : "",
@@ -60,3 +61,5 @@ export default function CityCard({
     </div>
   );
 }
+
+export default memo(CityCard);

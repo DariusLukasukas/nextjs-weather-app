@@ -1,4 +1,4 @@
-import { convertTemp } from "@/lib/units";
+import { convertTemp } from "@/lib/weather/units";
 import { WeatherUnits } from "@/types/weather-units";
 
 export default function FeelsLikeCard({

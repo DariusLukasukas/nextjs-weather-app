@@ -1,7 +1,7 @@
 import { OpenWeatherDailyForecast16DaysResponse } from "@/types/openweather";
 import { WeatherUnits } from "@/types/weather-units";
-import { convertTemp } from "@/lib/units";
-import { getWeatherEmoji } from "@/lib/weather-emoji";
+import { convertTemp } from "@/lib/weather/units";
+import { getWeatherEmoji } from "@/lib/constants/weather-emoji";
 
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 

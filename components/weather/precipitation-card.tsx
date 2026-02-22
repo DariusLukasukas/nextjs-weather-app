@@ -1,4 +1,4 @@
-import { convertPrecipitation } from "@/lib/units";
+import { convertPrecipitation } from "@/lib/weather/units";
 import { OpenWeatherRain, OpenWeatherSnow } from "@/types/openweather";
 import { WeatherUnits } from "@/types/weather-units";
 

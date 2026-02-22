@@ -4,9 +4,10 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { SidebarClose, SidebarOpen } from "lucide-react";
 import LocationSearch from "./location-search";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import CityList from "./city-list";
 import { WeatherUnits } from "@/types/weather-units";
+import { cn } from "@/lib/utils";
 
 const SIDEBAR_WIDTH_OPEN = 320;
 const SIDEBAR_WIDTH_CLOSED = 52;
@@ -45,19 +46,23 @@ export default function Sidebar({
         {isOpen ? <SidebarOpen /> : <SidebarClose />}
       </Button>
 
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ type: "spring", bounce: 0, duration: 0.25 }}
-            className="flex w-full shrink-0 flex-col gap-2"
-          >
-            <LocationSearch onFocusChange={setIsSearchFocused} />
-            {!isSearchFocused && <CityList temperatureUnit={temperatureUnit} />}
-          </motion.div>
+      <motion.div
+        initial={false}
+        animate={{ opacity: isOpen ? 1 : 0 }}
+        transition={{
+          opacity: {
+            duration: isOpen ? 0.2 : 0.1,
+            ease: "easeOut",
+          },
+        }}
+        className={cn(
+          "flex w-full shrink-0 flex-col gap-2",
+          !isOpen && "pointer-events-none",
         )}
-      </AnimatePresence>
+      >
+        <LocationSearch onFocusChange={setIsSearchFocused} />
+        {!isSearchFocused && <CityList temperatureUnit={temperatureUnit} />}
+      </motion.div>
     </motion.aside>
   );
 }

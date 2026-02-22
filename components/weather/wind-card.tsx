@@ -1,4 +1,4 @@
-import { convertWindSpeed } from "@/lib/units";
+import { convertWindSpeed } from "@/lib/weather/units";
 import { WeatherUnits } from "@/types/weather-units";
 
 function degreeToDirection(deg: number): string {

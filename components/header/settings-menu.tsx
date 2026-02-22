@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { WeatherUnits } from "@/types/weather-units";
-import { getUnits } from "@/lib/units";
+import { getUnits } from "@/lib/weather/units";
 
 const UNIT_OPTIONS = [
   { value: "celsius", label: "°C", ariaLabel: "Celsius" },

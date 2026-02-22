@@ -8,7 +8,7 @@ import type {
 } from "@mapbox/search-js-core";
 import useDebounce from "@/hooks/use-debounce";
 import { useRouter, useSearchParams } from "next/navigation";
-import { DEFAULT_CITIES } from "@/lib/default-cities";
+import { DEFAULT_CITIES } from "@/lib/constants/default-cities";
 import SuggestionItem from "./suggestion-item";
 
 const MAPBOX_API_KEY = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN!;

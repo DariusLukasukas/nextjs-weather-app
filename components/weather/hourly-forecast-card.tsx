@@ -6,8 +6,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { WeatherUnits } from "@/types/weather-units";
-import { convertTemp } from "@/lib/units";
-import { getWeatherEmoji } from "@/lib/weather-emoji";
+import { convertTemp } from "@/lib/weather/units";
+import { getWeatherEmoji } from "@/lib/constants/weather-emoji";
 
 const SCROLL_STEP = 400;
 

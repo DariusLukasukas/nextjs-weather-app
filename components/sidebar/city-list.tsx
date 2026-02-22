@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import CityCard from "./city-card";
 import { useCitiesStore } from "@/lib/store/use-cities-store";
 import { SavedCity } from "@/types/city";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getCurrentWeatherBatch } from "@/actions/weather";
 import { OpenWeatherCurrentWeatherResponse } from "@/types/openweather";
 import { AnimatePresence, motion } from "motion/react";
@@ -35,28 +35,34 @@ export default function CityList({
     }>
   >([]);
 
-  const handleCityClick = (city: SavedCity) => {
-    const currentLat = searchParams.get("lat");
-    const currentLon = searchParams.get("lon");
+  const handleCityClick = useCallback(
+    (city: SavedCity) => {
+      const currentLat = searchParams.get("lat");
+      const currentLon = searchParams.get("lon");
 
-    if (
-      currentLat === city.coord.lat.toString() &&
-      currentLon === city.coord.lon.toString()
-    ) {
-      return;
-    }
+      if (
+        currentLat === city.coord.lat.toString() &&
+        currentLon === city.coord.lon.toString()
+      ) {
+        return;
+      }
 
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("lat", city.coord.lat.toString());
-    params.set("lon", city.coord.lon.toString());
-    params.set("location", city.name);
-    params.set("country", city.country);
-    router.push(`/?${params.toString()}`);
-  };
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("lat", city.coord.lat.toString());
+      params.set("lon", city.coord.lon.toString());
+      params.set("location", city.name);
+      params.set("country", city.country);
+      router.push(`/?${params.toString()}`);
+    },
+    [searchParams, router],
+  );
 
-  const handleDelete = (city: SavedCity) => {
-    removeCity(city.name, city.country);
-  };
+  const handleDelete = useCallback(
+    (city: SavedCity) => {
+      removeCity(city.name, city.country);
+    },
+    [removeCity],
+  );
 
   useEffect(() => {
     if (cities.length === 0) {
@@ -114,7 +120,7 @@ export default function CityList({
                 <ContextMenuTrigger>
                   <CityCard
                     city={city}
-                    onClick={() => handleCityClick(city)}
+                    onClick={handleCityClick}
                     isActive={isActive}
                     weather={weather}
                     temperatureUnit={temperatureUnit}
