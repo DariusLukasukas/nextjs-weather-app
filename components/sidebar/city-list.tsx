@@ -9,6 +9,13 @@ import { getCurrentWeatherBatch } from "@/actions/weather";
 import { OpenWeatherCurrentWeatherResponse } from "@/types/openweather";
 import { AnimatePresence, motion } from "motion/react";
 import { WeatherUnits } from "@/types/weather-units";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "../ui/context-menu";
+import { Trash2 } from "lucide-react";
 
 export default function CityList({
   temperatureUnit,
@@ -18,7 +25,8 @@ export default function CityList({
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const { cities } = useCitiesStore();
+  const { cities, removeCity } = useCitiesStore();
+
   const [weatherData, setWeatherData] = useState<
     Array<{
       city: SavedCity;
@@ -44,6 +52,10 @@ export default function CityList({
     params.set("location", city.name);
     params.set("country", city.country);
     router.push(`/?${params.toString()}`);
+  };
+
+  const handleDelete = (city: SavedCity) => {
+    removeCity(city.name, city.country);
   };
 
   useEffect(() => {
@@ -80,6 +92,11 @@ export default function CityList({
     <div className="flex flex-col gap-2">
       <AnimatePresence>
         {weatherData.map(({ city, weather, error }) => {
+          if (error) {
+            console.error(`Weather failed for ${city.name}:`, error);
+            return null;
+          }
+
           const isActive =
             searchParams.get("lat") === city.coord.lat.toString() &&
             searchParams.get("lon") === city.coord.lon.toString();
@@ -93,13 +110,26 @@ export default function CityList({
               exit={{ opacity: 0 }}
               transition={{ type: "spring", bounce: 0, duration: 0.4 }}
             >
-              <CityCard
-                city={city}
-                onClick={() => handleCityClick(city)}
-                isActive={isActive}
-                weather={weather}
-                temperatureUnit={temperatureUnit}
-              />
+              <ContextMenu>
+                <ContextMenuTrigger>
+                  <CityCard
+                    city={city}
+                    onClick={() => handleCityClick(city)}
+                    isActive={isActive}
+                    weather={weather}
+                    temperatureUnit={temperatureUnit}
+                  />
+                </ContextMenuTrigger>
+                <ContextMenuContent>
+                  <ContextMenuItem
+                    variant="destructive"
+                    onClick={() => handleDelete(city)}
+                  >
+                    <Trash2 />
+                    Delete
+                  </ContextMenuItem>
+                </ContextMenuContent>
+              </ContextMenu>
             </motion.div>
           );
         })}

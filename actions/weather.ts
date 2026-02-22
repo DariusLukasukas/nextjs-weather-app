@@ -49,15 +49,18 @@ export async function getCurrentWeather(
  * Hourly Forecast 4 Days API Request
  * @param lat
  * @param lon
+ * @param cnt Number of hours to forecast (1-48)
  * @returns OpenWeatherHourlyForecast4DaysResponse
  */
 export async function getHourlyForecast4Days(
   lat: number,
   lon: number,
+  cnt: number = 48,
 ): Promise<OpenWeatherHourlyForecast4DaysResponse> {
   const params = new URLSearchParams({
     lat: String(lat),
     lon: String(lon),
+    cnt: String(cnt),
     appid: getApiKey(),
     units: "metric",
   });

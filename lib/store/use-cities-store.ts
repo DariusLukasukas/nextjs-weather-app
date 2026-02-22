@@ -1,4 +1,8 @@
-import { SAVED_CITIES_STORAGE_KEY, SavedCity } from "@/types/city";
+import {
+  MAX_SAVED_CITIES,
+  SAVED_CITIES_STORAGE_KEY,
+  SavedCity,
+} from "@/types/city";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -10,6 +14,7 @@ interface CitiesStore {
   removeCity: (name: string, country: string) => void;
   clearCities: () => void;
   isCitySaved: (name: string, country: string) => boolean;
+  canAddCity: () => boolean;
 }
 
 export const useCitiesStore = create<CitiesStore>()(
@@ -29,6 +34,11 @@ export const useCitiesStore = create<CitiesStore>()(
 
         if (isDuplicate) {
           console.warn("City already exists");
+          return;
+        }
+
+        if (currentCities.length >= MAX_SAVED_CITIES) {
+          console.warn("You can only save up to 10 cities");
           return;
         }
 
@@ -61,6 +71,10 @@ export const useCitiesStore = create<CitiesStore>()(
             c.name.toLocaleLowerCase() === name.toLocaleLowerCase() &&
             c.country.toLocaleLowerCase() === country.toLocaleLowerCase(),
         );
+      },
+
+      canAddCity: () => {
+        return get().cities.length < MAX_SAVED_CITIES;
       },
     }),
     {

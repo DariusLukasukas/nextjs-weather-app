@@ -1,14 +1,13 @@
 "use client";
 
-import { Plus, Trash2 } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Button } from "../ui/button";
 import { useSearchParams } from "next/navigation";
 import { useCitiesStore } from "@/lib/store/use-cities-store";
-import { cn } from "@/lib/utils";
 
 export default function AddButton() {
   const searchParams = useSearchParams();
-  const { addCity, isCitySaved, removeCity, _hasHydrated } = useCitiesStore();
+  const { addCity, isCitySaved, _hasHydrated } = useCitiesStore();
 
   if (!_hasHydrated) return null;
 
@@ -23,33 +22,25 @@ export default function AddButton() {
 
   const isSaved = hasRequiredParams ? isCitySaved(name!, country!) : false;
 
-  const handleToggle = () => {
+  const handleAdd = () => {
     if (!name || !country || !lat || !lon) return;
-
-    if (isSaved) {
-      removeCity(name, country);
-    } else {
-      addCity({
-        name,
-        country,
-        coord: { lat: Number(lat), lon: Number(lon) },
-        createdAt: Date.now(),
-      });
-    }
+    addCity({
+      name,
+      country,
+      coord: { lat: Number(lat), lon: Number(lon) },
+      createdAt: Date.now(),
+    });
   };
 
-  return (
+  return isSaved ? null : (
     <Button
       size="icon"
-      variant={isSaved ? "destructive" : "secondary"}
-      onClick={handleToggle}
-      disabled={!_hasHydrated}
-      aria-label={
-        isSaved ? "Remove city from saved cities" : "Add city to saved cities"
-      }
-      className={cn("rounded-full", !isSaved && "bg-card")}
+      variant={"outline"}
+      aria-label="Add to Favorites"
+      className="rounded-full"
+      onClick={handleAdd}
     >
-      {isSaved ? <Trash2 /> : <Plus />}
+      <Plus />
     </Button>
   );
 }

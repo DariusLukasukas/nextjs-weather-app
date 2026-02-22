@@ -24,7 +24,7 @@ const WEATHER_MAP_LAYERS: {
   { value: "precipitation_new", label: "Precipitation" },
   { value: "clouds_new", label: "Clouds" },
   { value: "pressure_new", label: "Pressure" },
-  { value: "wind_new", label: "Wind" },
+  { value: "wind_new", label: "Wind Speed" },
   { value: "temp_new", label: "Temperature" },
 ];
 
@@ -134,7 +134,7 @@ export default function Map({ lat, lon }: { lat: number; lon: number }) {
             </Button>
           }
         />
-        <DropdownMenuContent align="end" side="bottom">
+        <DropdownMenuContent align="end" side="bottom" className="w-34">
           <DropdownMenuRadioGroup value={layer} onValueChange={setLayer}>
             {WEATHER_MAP_LAYERS.map((l) => (
               <DropdownMenuRadioItem key={l.value} value={l.value}>

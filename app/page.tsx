@@ -2,6 +2,7 @@ import {
   getAirPollution,
   getCurrentWeather,
   getDailyForecast16Days,
+  getHourlyForecast4Days,
   getUVIndex,
 } from "@/actions/weather";
 import Header from "@/components/header/header";
@@ -40,10 +41,14 @@ import AirQualityCard from "@/components/weather/air-quality-card";
 import UVIndexCard from "@/components/weather/uv-index-card";
 import TenDayForecastCard from "@/components/weather/ten-day-forecast-card";
 import Map from "@/components/weather/map";
+import HourlyForecastCard from "@/components/weather/hourly-forecast-card";
 
 // Cupertino, CA
 const DEFAULT_LAT = 37.319321;
 const DEFAULT_LON = -122.029283;
+
+const FORECAST_HOURS = 24;
+const FORECAST_DAYS = 10;
 
 export default async function Home({
   searchParams,
@@ -59,12 +64,14 @@ export default async function Home({
 
   const { lat = DEFAULT_LAT, lon = DEFAULT_LON } = await searchParams;
 
-  const [current, airPollution, uvIndex, dailyForecast] = await Promise.all([
-    getCurrentWeather(Number(lat), Number(lon)),
-    getAirPollution(Number(lat), Number(lon)),
-    getUVIndex(Number(lat), Number(lon)),
-    getDailyForecast16Days(Number(lat), Number(lon), 10),
-  ]);
+  const [current, airPollution, uvIndex, hourlyForecast, dailyForecast] =
+    await Promise.all([
+      getCurrentWeather(Number(lat), Number(lon)),
+      getAirPollution(Number(lat), Number(lon)),
+      getUVIndex(Number(lat), Number(lon)),
+      getHourlyForecast4Days(Number(lat), Number(lon), FORECAST_HOURS),
+      getDailyForecast16Days(Number(lat), Number(lon), FORECAST_DAYS),
+    ]);
 
   /*
    * Logs for debugging
@@ -72,10 +79,11 @@ export default async function Home({
   // console.log("Current:", current);
   // console.log("Air Pollution:", airPollution.list[0]);
   // console.log("UV Index:", uvIndex);
+  // console.log("Hourly Forecast:", hourlyForecast);
   // console.log("Daily Forecast:", dailyForecast);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-zinc-100 dark:bg-black">
+    <div className="dark:bg-background flex h-screen overflow-hidden bg-zinc-100">
       <Sidebar defaultOpen={sidebarOpen} temperatureUnit={units.temperature} />
 
       <div className="@container flex min-h-0 flex-1 flex-col overflow-y-auto p-3 md:pl-0">
@@ -84,11 +92,16 @@ export default async function Home({
         <motion.main
           layout
           transition={{ type: "spring", bounce: 0, duration: 0.25 }}
-          className="relative mx-auto flex w-full max-w-6xl min-w-0 flex-col items-center gap-8"
+          className="relative mx-auto flex w-full max-w-6xl min-w-0 flex-col items-center gap-4"
         >
           <TemperatureCard
             current={current}
             temperatureUnit={units.temperature}
+          />
+
+          <HourlyForecastCard
+            hourly={hourlyForecast}
+            units={units.temperature}
           />
 
           <div className="grid w-full auto-rows-fr grid-cols-2 gap-4 @md:grid-cols-4 @4xl:grid-cols-6">
@@ -100,7 +113,7 @@ export default async function Home({
                   10 Day Forecast
                 </GridCardTitle>
               </GridCardHeader>
-              <GridCardContent>
+              <GridCardContent className="pt-2">
                 <TenDayForecastCard
                   dailyForecast={dailyForecast}
                   temperatureUnit={units.temperature}

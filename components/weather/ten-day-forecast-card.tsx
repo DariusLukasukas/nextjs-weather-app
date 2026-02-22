@@ -1,6 +1,7 @@
 import { OpenWeatherDailyForecast16DaysResponse } from "@/types/openweather";
 import { WeatherUnits } from "@/types/weather-units";
 import { convertTemp } from "@/lib/units";
+import { getWeatherEmoji } from "@/lib/weather-emoji";
 
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -80,13 +81,18 @@ export default function TenDayForecastCard({
         return (
           <div
             key={day.dt}
-            className="grid grid-cols-[3rem_2rem_1fr_2rem] items-center gap-2 py-2"
+            className="grid grid-cols-[3rem_2rem_2rem_1fr_2rem] items-center gap-2 py-2"
           >
             <span className="text-sm font-medium">{label}</span>
+            <span className="text-sm">
+              {getWeatherEmoji(day.weather[0].id, day.weather[0].icon)}
+            </span>
+
+            {/* Low */}
             <span className="text-muted-foreground text-right text-sm">
               {Math.round(low)}°
             </span>
-
+            {/* Temperature gradient */}
             <div className="bg-secondary relative h-1.5 rounded-full">
               <div
                 className="absolute inset-y-0 rounded-full"
@@ -97,8 +103,8 @@ export default function TenDayForecastCard({
                 }}
               />
             </div>
-
-            <span className="text-right text-sm font-medium">
+            {/* High */}
+            <span className="text-muted-foreground text-right text-sm font-medium">
               {Math.round(high)}°
             </span>
           </div>

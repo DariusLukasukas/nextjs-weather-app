@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { useTheme } from "next-themes";
-import { Moon, Sun, Settings, Contrast } from "lucide-react";
+import { Moon, Sun, Settings, Contrast, Settings2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
@@ -64,10 +64,10 @@ export default function SettingsMenu() {
         render={
           <Button
             size={"icon"}
-            variant={"secondary"}
-            className="bg-card ml-auto rounded-full"
+            variant={"outline"}
+            className="ml-auto rounded-full"
           >
-            <Settings strokeWidth={1.5} />
+            <Settings2 />
           </Button>
         }
       />

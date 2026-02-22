@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { SavedCity } from "@/types/city";
 import { OpenWeatherCurrentWeatherResponse } from "@/types/openweather";
 import { WeatherUnits } from "@/types/weather-units";
+import CityTime from "./city-time";
 
 interface CityCardProps {
   city: SavedCity;
@@ -33,7 +34,10 @@ export default function CityCard({
       )}
     >
       <div className="flex flex-row items-start justify-between">
-        <p className="font-bold">{city.name}</p>
+        <div>
+          <p className="font-bold">{city.name}</p>
+          {weather && <CityTime timezone={weather.timezone} />}
+        </div>
         <p className="text-3xl font-medium">
           {convertTemp(Number(temperature), temperatureUnit).toFixed(0)}°
         </p>

@@ -5,19 +5,31 @@ import { format } from "date-fns";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { WeatherUnits } from "@/types/weather-units";
+import { convertTemp } from "@/lib/units";
+import { getWeatherEmoji } from "@/lib/weather-emoji";
 
-const SHOW_HOURS = 24;
 const SCROLL_STEP = 400;
 
 export default function HourlyForecastCard({
   hourly,
+  units,
 }: {
   hourly: OpenWeatherHourlyForecast4DaysResponse;
+  units: WeatherUnits["temperature"];
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
-  const hours = useMemo(() => hourly.list.slice(0, SHOW_HOURS), [hourly]);
+
+  const hours = hourly.list;
+  const cityTimezone = hourly.city.timezone;
+
+  const formatHourInLocation = (dt: number) => {
+    const localMs = (dt + cityTimezone) * 1000;
+    const hours = new Date(localMs).getUTCHours();
+    return String(hours).padStart(2, "0");
+  };
 
   const updateScrollState = useCallback(() => {
     const el = scrollRef.current;
@@ -51,7 +63,7 @@ export default function HourlyForecastCard({
   }, []);
 
   return (
-    <section className="bg-card relative flex w-full min-w-0 flex-col rounded-2xl p-3">
+    <div className="bg-card relative flex w-full min-w-0 flex-col rounded-2xl p-3">
       {/* Left */}
       {canScrollLeft && (
         <button
@@ -68,16 +80,19 @@ export default function HourlyForecastCard({
       <div
         ref={scrollRef}
         onScroll={updateScrollState}
-        className="no-scrollbar flex snap-x snap-mandatory flex-row justify-evenly gap-8 overflow-x-scroll overflow-y-hidden overscroll-none scroll-smooth select-none"
+        className="no-scrollbar flex snap-x snap-mandatory flex-row justify-evenly gap-6 overflow-x-scroll overflow-y-hidden overscroll-none scroll-smooth select-none"
       >
         {hours.map((hour, i) => (
           <motion.div
             key={hour.dt}
             transition={{ duration: 0.2, delay: i * 0.02 }}
-            className="flex snap-center flex-col items-center gap-4"
+            className="flex min-w-10 snap-center flex-col items-center gap-4"
           >
-            <p>{format(hour.dt * 1000, "HH")}</p>
-            <p>{hour.main.temp.toFixed(0)}°</p>
+            <p>{formatHourInLocation(hour.dt)}</p>
+            <span>
+              {getWeatherEmoji(hour.weather[0].id, hour.weather[0].icon)}
+            </span>
+            <p>{convertTemp(hour.main.temp, units).toFixed(0)}°</p>
           </motion.div>
         ))}
       </div>
@@ -93,6 +108,6 @@ export default function HourlyForecastCard({
           <ChevronRight />
         </button>
       )}
-    </section>
+    </div>
   );
 }
