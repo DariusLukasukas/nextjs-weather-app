@@ -2,7 +2,7 @@
 
 Apple Weather inspired web app integrating Mapbox and OpenWeather APIs to deliver real-time forecasts, interactive map with weather layers, and location search.
 
-<img width="3984" height="2696" alt="CleanShot 2026-02-23 at 20 23 56@2x" src="https://github.com/user-attachments/assets/9305dd14-cc58-4b1f-8b55-cc18aed26853" />
+<img width="3976" height="2534" alt="CleanShot 2026-03-05 at 21 05 44@2x" src="https://github.com/user-attachments/assets/3cfcb021-b7cd-4995-b022-ef30aef3ac4c" />
 
 ## Features
 
