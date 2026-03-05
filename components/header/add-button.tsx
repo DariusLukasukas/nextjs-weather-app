@@ -34,7 +34,7 @@ export default function AddButton() {
 
   return isSaved ? null : (
     <Button
-      size="icon"
+      size={"icon-lg"}
       variant={"outline"}
       aria-label="Add to Favorites"
       className="rounded-full"

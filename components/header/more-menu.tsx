@@ -37,7 +37,11 @@ export default function MoreMenu() {
       <DropdownMenu>
         <DropdownMenuTrigger
           render={
-            <Button size={"icon"} variant={"outline"} className="rounded-full">
+            <Button
+              size={"icon-lg"}
+              variant={"outline"}
+              className="rounded-full"
+            >
               <Ellipsis />
             </Button>
           }

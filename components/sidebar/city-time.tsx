@@ -25,5 +25,5 @@ export default function CityTime({ timezone }: { timezone: number }) {
 
   const formattedTime = formatTimeInTimezone(now.getTime() / 1000, timezone);
 
-  return <p className="text-muted-foreground text-xs">{formattedTime}</p>;
+  return <p className="text-xs text-neutral-100">{formattedTime}</p>;
 }

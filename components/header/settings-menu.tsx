@@ -63,7 +63,7 @@ export default function SettingsMenu() {
       <DropdownMenuTrigger
         render={
           <Button
-            size={"icon"}
+            size={"icon-lg"}
             variant={"outline"}
             className="ml-auto rounded-full"
           >
